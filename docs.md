@@ -39,7 +39,6 @@ Endpoint: `/api/:employeeId/certs`
 Query Params: `?certificateId=certificate ID(3944)`
 Payload: 
     Request Payload:
-    ```json
     [{ 
         "certificateId": "certificate ID", 
         "certificateName": "certificate name", 
@@ -47,8 +46,7 @@ Payload:
         "issueDate": "issue date", 
         "expireDate": "expire date",
         "certificateUrl": "certificate URL"
-    }]
-    ```   
+    }]   
 Response JSON:
     [{
         "response code": "message based on response code"
