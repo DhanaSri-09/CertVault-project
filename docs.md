@@ -3,7 +3,7 @@
 ```code
 Method: GET
 Endpoint: /api/:employeeId/certs
-Query Params: ?sort=desc/asc
+Query Params: ?sort=(desc/asc)
 Payload: None
 Response JSON:
     [{
