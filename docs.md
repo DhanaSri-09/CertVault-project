@@ -7,12 +7,12 @@ Query Params: ?sort=(desc/asc)
 Payload: None
 Response JSON:
     [{
-        "certificateId": "certificate ID",
-        "certificateName": "certificate name",
-        "issuingOrganization": "organisation name",
-        "issueDate": "issue date",
-        "expireDate": "expire date",
-        "certificateUrl": "certificate URL"
+        "certificateId": certificateID,
+        "certificateName": certificateName,
+        "issuingOrganization": organisationName,
+        "issueDate": issueDate,
+        "expireDate": expireDate,
+        "certificateUrl": certificateURL
     }, {...},...]
 Response Code: 200(OK)/404(Not Found)
 ```
@@ -26,7 +26,7 @@ Query Params: ?certificateId=certificate ID&certificateName=certificate name&iss
 Payload: None
 Response JSON:
     {
-        "response code": "message based on response code"
+        "responseMessage": message
     }
 Response Code: 200(OK)/404(Not Found)
 ```
@@ -40,15 +40,15 @@ Query Params: ?certificateId=certificate ID(3944)
 Payload: 
     Request Payload:
     {  
-        "certificateName": "certificate name", 
-        "issuingOrganization": "organisation name", 
-        "issueDate": "issue date", 
-        "expireDate": "expire date",
-        "certificateUrl": "certificate URL"
+        "certificateName": certificateName, 
+        "issuingOrganization": organisationName, 
+        "issueDate": issueDate, 
+        "expireDate": expireDate,
+        "certificateUrl": certificateURL
     }      
 Response JSON:
     {
-        "response code": "message based on response code"
+        "responseMessage": message
     }
 Response Code: 200(OK)/404(Not Found)
 ```
@@ -62,7 +62,7 @@ Query Params: ?certificateId=certificate Id(8364)
 Payload: None
 Response JSON:
     {
-        "response code": "message based on response code"
+        "responseMessage": message
     }
 Response Code: 200(OK)/404(Not Found)
 ```
@@ -76,12 +76,12 @@ Query Params: ?certificateId=certificate ID(7383)
 Payload: None
 Response JSON:
     {
-        "certificateId": "certificate ID",
-        "certificateName": "certificate name",
-        "issuingOrganization": "organisation name",
-        "issueDate": "issue date",
-        "expireDate": "expire date",
-        "certificateUrl": "certificate URL"
+        "certificateId": certificateId,
+        "certificateName": certificateName,
+        "issuingOrganization": organisationName,
+        "issueDate": issueDate,
+        "expireDate": expireDate,
+        "certificateUrl": certificateURL
     }
 Response Code: 200(OK)/404(Not Found)
 ```
