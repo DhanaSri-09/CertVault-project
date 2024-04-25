@@ -39,8 +39,7 @@ Endpoint: /api/:employeeId/certs/editCert
 Query Params: ?certificateId=certificate ID(3944)
 Payload: 
     Request Payload:
-    { 
-        "certificateId": "certificate ID", 
+    {  
         "certificateName": "certificate name", 
         "issuingOrganization": "organisation name", 
         "issueDate": "issue date", 
