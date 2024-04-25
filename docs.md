@@ -6,7 +6,7 @@ Endpoint: /api/employee/certs
 Query Params: ?employeeId=employee Id&sort=(desc/asc)
 Payload:
     Request Payload: None
-    Response Payload: contaians array of certificate objects in JSON format.
+    Response Payload: It contaians array of certificate objects in JSON format.
 Response JSON:
    sucessful- [{
         "certificateId": certificateID,
@@ -48,7 +48,7 @@ Response Code: 200(OK)/404(Not Found)
 ```
 Method: PUT
 Endpoint: /api/:employeeId/certs
-Query Params: ??employeeId=employee Id&certificateId=certificate ID(3944)
+Query Params: ?employeeId=employee Id&certificateId=certificate ID(3944)
 Payload: 
     Request Payload:
         {  
@@ -85,7 +85,7 @@ Response Code: 200(OK)/404(Not Found)
 ```
 Method: GET
 Endpoint: /api/employee/certs/searchCert
-Query Params: ??employeeId=employee Id&certificateId=certificate ID(7383)
+Query Params: ?employeeId=employee Id&certificateId=certificate ID(7383)
 Payload: None
 Response JSON:
     success-  {
