@@ -35,7 +35,7 @@ Response Code: 200(OK)/404(Not Found)
 
 ```code
 Method: PUT
-Endpoint: /api/:employeeId/certs
+Endpoint: /api/:employeeId/certs/
 Query Params: ?certificateId=certificate ID(3944)
 Payload: 
     Request Payload:
