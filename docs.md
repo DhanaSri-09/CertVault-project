@@ -1,6 +1,6 @@
 ## List Certs:
 
-```code
+```
 Method: GET
 Endpoint: /api/:employeeId/certs
 Query Params: ?sort=(desc/asc)
