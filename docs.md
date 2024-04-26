@@ -11,6 +11,7 @@ Response JSON:
    sucessful- [{
         "certificateId": certificateID,
         "certificateName": certificateName,
+        "certificateDescription" : certificateDescription
         "issuingOrganization": organisationName,
         "issueDate": issueDate,
         "expireDate": expireDate,
@@ -53,7 +54,8 @@ Query Params:
 Payload: 
     Request Payload:
         {  
-            "certificateName": certificateName, 
+            "certificateName": certificateName,
+            "certificateDescription" : certificateDescription
             "issuingOrganization": organisationName, 
             "issueDate": issueDate, 
             "expireDate": expireDate,
@@ -92,6 +94,7 @@ Response JSON:
     success-  {
         "certificateId": certificateId,
         "certificateName": certificateName,
+        "certificateDescription" : certificateDescription
         "issuingOrganization": organisationName,
         "issueDate": issueDate,
         "expireDate": expireDate,
