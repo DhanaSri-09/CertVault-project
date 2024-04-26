@@ -2,8 +2,8 @@
 
 ```
 Method: GET
-Endpoint: /api/employee/certs
-Query Params: ?employeeId=employee Id&sort=(desc/asc)
+Endpoint: /api/:employeeId/certs/:certificateId
+Query Params: ?sort=(desc/asc)
 Payload:
     Request Payload: None
     Response Payload: It contaians array of certificate objects in JSON format.
@@ -24,13 +24,14 @@ Response Code: 200(OK)/404(Not Found)
 
 ```
 Method: POST
-Endpoint: /api/employee/certs
-Query Params: ?employeeId=employee Id
+Endpoint: /api/:employeeId/certs
+Query Params: 
 Payload:
     Request Payload:
             {
             "certificateId": certificateID
-            "certificateName": certificateName, 
+            "certificateName": certificateName,
+            "certificateDescription" : certificateDescription
             "issuingOrganization": organisationName, 
             "issueDate": issueDate, 
             "expireDate": expireDate,
@@ -40,15 +41,15 @@ Payload:
 Response JSON:
    success- { "responseCode": "200", "responseMessage": "Certificate added sucessfully."}
     error- { "responseCode": "404", "responseMessage": "Request not found."}
-Response Code: 200(OK)/404(Not Found)
+Response Code: 201(OK)/404(Not Found)
 ```
 
 ## Edit Cert:
 
 ```
 Method: PUT
-Endpoint: /api/:employeeId/certs
-Query Params: ?employeeId=employee Id&certificateId=certificate ID(3944)
+Endpoint: /api/:employeeId/certs/:certificateId
+Query Params:
 Payload: 
     Request Payload:
         {  
@@ -69,8 +70,8 @@ Response Code: 200(OK)/404(Not Found)
 
 ```
 Method: DELETE
-Endpoint: /api/employee/certs
-Query Params: ?employeeId=employee Id&certificateId=certificate Id(8364)
+Endpoint: /api/:employeeId/certs/:certificateId
+Query Params: 
 Payload:
     Request Payload: None
     Response Payload: It contains response code and message confirming the status of the operation.
@@ -84,8 +85,8 @@ Response Code: 200(OK)/404(Not Found)
 
 ```
 Method: GET
-Endpoint: /api/employee/certs/searchCert
-Query Params: ?employeeId=employee Id&certificateId=certificate ID(7383)
+Endpoint: /api/:employeeId/certs/searchCert/:certificateId
+Query Params: 
 Payload: None
 Response JSON:
     success-  {
