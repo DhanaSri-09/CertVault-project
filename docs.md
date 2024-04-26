@@ -6,7 +6,7 @@ Endpoint: /api/:employeeId/certs/:certificateId
 Query Params: ?sort=(desc/asc)
 Payload:
     Request Payload: None
-    Response Payload: It contaians array of certificate objects in JSON format.
+    Response Payload: It contains an array of certificate objects.
 Response JSON:
    sucessful- { "certificates": [{
         "certificateId": certificateID,
@@ -18,7 +18,7 @@ Response JSON:
         "certificateUrl": certificateURL
     }, {...},...]}
     error- { "responseCode": code, "responseMessage": messgae }  
-Response Code: 200(OK)/404(Not Found)
+Response Code: 200(OK)/404(Not Found)/500(Internal server error)
 ```
 
 ## Add Cert:
@@ -26,7 +26,7 @@ Response Code: 200(OK)/404(Not Found)
 ```
 Method: POST
 Endpoint: /api/:employeeId/certs
-Query Params: 
+Query Params: None
 Payload:
     Request Payload:
             {
@@ -52,7 +52,7 @@ Response JSON:
             "certificateUrl": certificateURL
             }
     error- { "responseCode": code, "responseMessage": messgae }  
-Response Code: 201(OK)/404(Not Found)
+Response Code: 201(OK)/404(Not Found)/500(Internal server error)
 ```
 
 ## Edit Cert:
@@ -60,7 +60,7 @@ Response Code: 201(OK)/404(Not Found)
 ```
 Method: PUT
 Endpoint: /api/:employeeId/certs/:certificateId
-Query Params:
+Query Params:None
 Payload: 
     Request Payload:
         {  
@@ -72,7 +72,7 @@ Payload:
             "certificateUrl": certificateURL
         }
     Response Payload:
-        sucess: It contains a updated certificate details.
+        sucess: It contains updated certificate details.
         error: It contains response code and message confirming the status of the operation.
 Response JSON: 
     success- {  
@@ -84,7 +84,7 @@ Response JSON:
             "certificateUrl": certificateURL
         }
     error- { "responseCode": code, "responseMessage": messgae }  
-Response Code: 200(OK)/404(Not Found)
+Response Code: 200(OK)/404(Not Found)/500(Internal server error)
 ```
 
 ## Delete Cert:
@@ -92,14 +92,14 @@ Response Code: 200(OK)/404(Not Found)
 ```
 Method: DELETE
 Endpoint: /api/:employeeId/certs/:certificateId
-Query Params: 
+Query Params: None
 Payload:
     Request Payload: None
     Response Payload: It contains response code and message confirming the status of the operation.
 Response JSON:
    success- { "responseCode": "200", "responseMessage": "Certificate deleted sucessfully."}
     error- { "responseCode": code, "responseMessage": messgae }  
-Response Code: 200(OK)/404(Not Found)
+Response Code: 200(OK)/404(Not Found)/500(Internal server error)
 ```
 
 ## Search Cert:
@@ -107,11 +107,11 @@ Response Code: 200(OK)/404(Not Found)
 ```
 Method: GET
 Endpoint: /api/:employeeId/certs/searchCert/:certificateId
-Query Params: 
+Query Params: None
 Payload:
     Request Payload: None
     Response Payload:
-        sucess: It contains a certificate details.
+        sucess: It contains certificate details.
         error: It contains response code and message confirming the status.
 Response JSON:
     success-  {
@@ -124,5 +124,5 @@ Response JSON:
         "certificateUrl": certificateURL
     }
     error- { "responseCode": code, "responseMessage": messgae }  
-Response Code: 200(OK)/404(Not Found)
+Response Code: 200(OK)/404(Not Found)/500(Internal server error)
 ```
