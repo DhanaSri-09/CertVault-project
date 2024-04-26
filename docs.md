@@ -8,7 +8,7 @@ Payload:
     Request Payload: None
     Response Payload: It contaians array of certificate objects in JSON format.
 Response JSON:
-   sucessful- [{
+   sucessful- { "certificates": [{
         "certificateId": certificateID,
         "certificateName": certificateName,
         "certificateDescription" : certificateDescription
@@ -16,8 +16,8 @@ Response JSON:
         "issueDate": issueDate,
         "expireDate": expireDate,
         "certificateUrl": certificateURL
-    }, {...},...]
-    error- { "responseCode": "404", "responseMessage": "Request not found."}  
+    }, {...},...]}
+    error- { "responseCode": code, "responseMessage": messgae }  
 Response Code: 200(OK)/404(Not Found)
 ```
 
@@ -39,7 +39,7 @@ Payload:
             "certificateUrl": certificateURL
             }
     Response Payload:
-        sucess: It contains a newly added certificate in JSON format.
+        sucess: It contains a newly added certificate details.
         error: It contains response code and message confirming the status of the operation.
 Response JSON:
    success- {  
@@ -51,7 +51,7 @@ Response JSON:
             "expireDate": expireDate,
             "certificateUrl": certificateURL
             }
-    error- { "responseCode": "404", "responseMessage": "Request not found."}
+    error- { "responseCode": code, "responseMessage": messgae }  
 Response Code: 201(OK)/404(Not Found)
 ```
 
@@ -72,7 +72,7 @@ Payload:
             "certificateUrl": certificateURL
         }
     Response Payload:
-        sucess: It contains a updated certificate in JSON format.
+        sucess: It contains a updated certificate details.
         error: It contains response code and message confirming the status of the operation.
 Response JSON: 
     success- {  
@@ -83,7 +83,7 @@ Response JSON:
             "expireDate": expireDate,
             "certificateUrl": certificateURL
         }
-    error- { "responseCode": "404", "responseMessage": "Request not found."}
+    error- { "responseCode": code, "responseMessage": messgae }  
 Response Code: 200(OK)/404(Not Found)
 ```
 
@@ -98,7 +98,7 @@ Payload:
     Response Payload: It contains response code and message confirming the status of the operation.
 Response JSON:
    success- { "responseCode": "200", "responseMessage": "Certificate deleted sucessfully."}
-    error- { "responseCode": "404", "responseMessage": "Request not found."}
+    error- { "responseCode": code, "responseMessage": messgae }  
 Response Code: 200(OK)/404(Not Found)
 ```
 
@@ -111,7 +111,7 @@ Query Params:
 Payload:
     Request Payload: None
     Response Payload:
-        sucess: It contains a certificate in JSON format.
+        sucess: It contains a certificate details.
         error: It contains response code and message confirming the status.
 Response JSON:
     success-  {
@@ -123,6 +123,6 @@ Response JSON:
         "expireDate": expireDate,
         "certificateUrl": certificateURL
     }
-    error- { "responseCode": "404", "responseMessage": "Request not found."}  
+    error- { "responseCode": code, "responseMessage": messgae }  
 Response Code: 200(OK)/404(Not Found)
 ```
