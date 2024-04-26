@@ -38,9 +38,19 @@ Payload:
             "expireDate": expireDate,
             "certificateUrl": certificateURL
             }
-    Response Payload: It contains response code and message confirming the status of the operation.
+    Response Payload:
+        sucess: It contains a newly added certificate in JSON format.
+        error: It contains response code and message confirming the status of the operation.
 Response JSON:
-   success- { "responseCode": "200", "responseMessage": "Certificate added sucessfully."}
+   success- {  
+            "certificateId": certificateID
+            "certificateName": certificateName,
+            "certificateDescription" : certificateDescription
+            "issuingOrganization": organisationName, 
+            "issueDate": issueDate, 
+            "expireDate": expireDate,
+            "certificateUrl": certificateURL
+            }
     error- { "responseCode": "404", "responseMessage": "Request not found."}
 Response Code: 201(OK)/404(Not Found)
 ```
@@ -61,9 +71,18 @@ Payload:
             "expireDate": expireDate,
             "certificateUrl": certificateURL
         }
-    Response Payload: It contains response code and message confirming the status of the operation.
+    Response Payload:
+        sucess: It contains a updated certificate in JSON format.
+        error: It contains response code and message confirming the status of the operation.
 Response JSON: 
-    success- { "responseCode": "200", "responseMessage": "Certificate updated sucessfully."}
+    success- {  
+            "certificateName": certificateName,
+            "certificateDescription" : certificateDescription
+            "issuingOrganization": organisationName, 
+            "issueDate": issueDate, 
+            "expireDate": expireDate,
+            "certificateUrl": certificateURL
+        }
     error- { "responseCode": "404", "responseMessage": "Request not found."}
 Response Code: 200(OK)/404(Not Found)
 ```
@@ -89,7 +108,11 @@ Response Code: 200(OK)/404(Not Found)
 Method: GET
 Endpoint: /api/:employeeId/certs/searchCert/:certificateId
 Query Params: 
-Payload: None
+Payload:
+    Request Payload: None
+    Response Payload:
+        sucess: It contains a certificate in JSON format.
+        error: It contains response code and message confirming the status.
 Response JSON:
     success-  {
         "certificateId": certificateId,
