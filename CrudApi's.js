@@ -18,11 +18,11 @@ let db;
 app.get('/api/:employeeId/certs', async (req, res) => {
     const employeeId = req.params.employeeId;
     try {
-        const rows = await db.all('SELECT * FROM Certificate WHERE EmployeeId = ? ', [employeeId]);
-        res.status(200).json(rows);
+        const certificates = await db.all('SELECT * FROM Certificate WHERE EmployeeId = ? ', [employeeId]);
+        res.status(200).json({ Certificates: certificates});
     } 
     catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).send(error);
     }
 });
 
