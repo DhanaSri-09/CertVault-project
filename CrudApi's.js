@@ -44,7 +44,7 @@ app.post('/api/:employeeId/certs/:certificateId', async (req, res) => {
     }
 });
 
-const checkCertificateExists = async (employeeId, certificateId) => {
+const getCertificate = async (employeeId, certificateId) => {
         const certificate = await db.get('SELECT * FROM Certificate WHERE EmployeeId = ? AND CertificateId = ?', [employeeId, certificateId]);
         return certificate;
 };
@@ -55,7 +55,7 @@ app.put('/api/:employeeId/certs/:certificateId', async (req, res) => {
     const certificateId = req.params.certificateId;
     const { CertificateName, IssuingOrganization, IssueDate, ExpireDate, CertificateUrl } = req.query;
     try {
-        const certificate = await checkCertificateExists(employeeId, certificateId);
+        const certificate = await getCertificate(employeeId, certificateId);
         if (!certificate) 
         {
             return res.status(404).json({ error: 'Certificate not found' });
@@ -80,7 +80,7 @@ app.delete('/api/:employeeId/certs/:certificateId', async (req, res) => {
     const certificateId = req.params.certificateId;
     try 
     {
-        const certificate = await checkCertificateExists(employeeId, certificateId);
+        const certificate = await getCertificate(employeeId, certificateId);
         if (!certificate) 
         {
             return res.status(404).json({ error: 'Certificate not found' });
@@ -100,7 +100,7 @@ app.get('api/:employeeId/certs/searchCert/:certificateID ', (req, res) =>{
     const certificateId = req.params.certificateId;
     try 
     {
-        const certificate = await checkCertificateExists(employeeId, certificateId);
+        const certificate = await getCertificate(employeeId, certificateId);
         if (!certificate) 
         {
             return res.status(404).json({ error: 'Certificate not found' });
