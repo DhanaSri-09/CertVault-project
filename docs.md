@@ -2,7 +2,7 @@
 
 ```
 Method: GET
-Endpoint: /api/:employeeId/certs/:certificateId
+Endpoint: /api/:employeeId/certs
 Query Params: ?sort=(desc/asc)
 Payload:
     Request Payload: None
