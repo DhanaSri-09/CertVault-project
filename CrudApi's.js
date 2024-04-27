@@ -28,7 +28,7 @@ app.get('/api/:employeeId/certs', async (req, res) => {
 });
 
 const getCertificate = async (employeeId, certificateId) => {
-    const certificate = await db.get('SELECT * FROM Certificate WHERE EmployeeId = ? AND CertificateId = ?', [employeeId, certificateId]);
+    const certificate = await db.get('Select * from Certificate where EmployeeId = ? and CertificateId = ?', [employeeId, certificateId]);
     return certificate;
 };
 
@@ -37,7 +37,7 @@ app.post('/api/:employeeId/certs', async (req, res) => {
     const { certificateId, certificateName, issuingOrganization, issueDate, expireDate, certificateUrl } = req.body;
     try {
         await db.run(
-            'INSERT INTO Certificate (EmployeeId, CertificateId, CertificateName, IssuingOrganization, IssueDate, ExpireDate, CertificateUrl) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            'Insert into Certificate (EmployeeId, CertificateId, CertificateName, IssuingOrganization, IssueDate, ExpireDate, CertificateUrl) values (?, ?, ?, ?, ?, ?, ?)',
             [employeeId, certificateId, certificateName, issuingOrganization, issueDate, expireDate, certificateUrl]
         );
         const insertedCertificate = await getCertificate(employeeId, certificateId);
@@ -47,7 +47,6 @@ app.post('/api/:employeeId/certs', async (req, res) => {
         res.status(500).json({ error: 'Error adding certificate' });
     }
 });
-    
     
 
 app.put('/api/:employeeId/certs/:certificateId', async (req, res) => {
@@ -63,7 +62,7 @@ app.put('/api/:employeeId/certs/:certificateId', async (req, res) => {
         await db.run(
             `Update Certificate 
             set CertificateName = ?, IssuingOrganization = ?, IssueDate = ?, ExpireDate = ?, CertificateUrl = ? 
-            where EmployeeId = ? AND CertificateId = ?`,
+            where EmployeeId = ? and CertificateId = ?`,
             [certificateName, issuingOrganization, issueDate, expireDate, certificateUrl, employeeId, certificateId]
         );
         const updatedCertificate = await getCertificate(employeeId, certificateId);
@@ -87,7 +86,7 @@ app.delete('/api/:employeeId/certs/:certificateId', async (req, res) => {
         {
             return res.status(404).json({ error: 'Certificate not found' });
         }
-        await db.run('Delete from Certificate where EmployeeId = ? AND CertificateId = ?', [employeeId, certificateId]);
+        await db.run('Delete from Certificate where EmployeeId = ? and CertificateId = ?', [employeeId, certificateId]);
         res.status(200).json({ message: 'Certificate deleted successfully' });
     } 
     catch (error) 
