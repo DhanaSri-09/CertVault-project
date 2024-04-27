@@ -110,8 +110,8 @@ app.get('api/:employeeId/certs/searchCert/:certificateId ', async (req, res) =>{
     {
         res.status(500).send(error);
     }
-})
+});
 
 app.listen(Port, () =>{
     console.log(`Server is running on port ${Port}`);
-})
+});
