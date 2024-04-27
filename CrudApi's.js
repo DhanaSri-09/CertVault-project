@@ -96,25 +96,6 @@ app.delete('/api/:employeeId/certs/:certificateId', async (req, res) => {
     }
 });
 
-
-app.get('api/:employeeId/certs/searchCert/:certificateId ', async (req, res) =>{
-    const employeeId = req.params.employeeId;
-    const certificateId = req.params.certificateId;
-    try 
-    {
-        const certificate = await getCertificate(employeeId, certificateId);
-        if (!certificate) 
-        {
-            return res.status(404).json({ error: 'Certificate not found' });
-        }
-        res.status(200).json({certificate});
-    }
-    catch (error)
-    {
-        res.status(500).send(error);
-    }
-});
-
 app.listen(Port, () =>{
     console.log(`Server is running on port ${Port}`);
 });
