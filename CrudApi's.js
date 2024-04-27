@@ -19,7 +19,7 @@ app.get('/api/:employeeId/certs', async (req, res) => {
     const employeeId = req.params.employeeId;
     try {
         const rows = await db.all('SELECT * FROM Certificate WHERE EmployeeId = ? ', [employeeId]);
-        res.json(rows);
+        res.status(200).json(rows);
     } 
     catch (error) {
         res.status(500).json({ error: 'Internal server error' });
