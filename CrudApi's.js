@@ -14,6 +14,7 @@ let db;
     });
 })();
 
+
 app.get('/api/:employeeId/certs', async (req, res) => {
     const employeeId = req.params.employeeId;
     try {
@@ -25,10 +26,12 @@ app.get('/api/:employeeId/certs', async (req, res) => {
     }
 });
 
+
 const getCertificate = async (employeeId, certificateId) => {
     const certificate = await db.get('Select * from Certificate where EmployeeId = ? and CertificateId = ?', [employeeId, certificateId]);
     return certificate;
 };
+
 
 app.post('/api/:employeeId/certs', async (req, res) => {
     const employeeId = req.params.employeeId;
