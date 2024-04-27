@@ -30,11 +30,11 @@ app.get('/api/:employeeId/certs', async (req, res) => {
 app.post('/api/:employeeId/certs/:certificateId', async (req, res) => {
     const employeeId = req.params.employeeId;
     const certificateId = req.params.certificateId;
-    const { CertificateName, IssuingOrganization, IssueDate, ExpireDate, CertificateUrl } = req.query;
+    const { certificateName, issuingOrganization, issueDate, expireDate, certificateUrl } = req.query;
     try {
         await db.run(
             'Insert into Certificate (EmployeeId, CertificateId, CertificateName, IssuingOrganization, IssueDate, ExpireDate, CertificateUrl) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [employeeId, certificateId, CertificateName, IssuingOrganization, IssueDate, ExpireDate, CertificateUrl]
+            [employeeId, certificateId, certificateName, issuingOrganization, issueDate, expireDate, certificateUrl]
         );
         res.status(200).json({ message: 'Certificate added successfully' });
     } 
@@ -53,7 +53,7 @@ const getCertificate = async (employeeId, certificateId) => {
 app.put('/api/:employeeId/certs/:certificateId', async (req, res) => {
     const employeeId = req.params.employeeId;
     const certificateId = req.params.certificateId;
-    const { CertificateName, IssuingOrganization, IssueDate, ExpireDate, CertificateUrl } = req.query;
+    const { certificateName, issuingOrganization, issueDate, expireDate, certificateUrl } = req.query;
     try {
         const certificate = await getCertificate(employeeId, certificateId);
         if (!certificate) 
@@ -64,7 +64,7 @@ app.put('/api/:employeeId/certs/:certificateId', async (req, res) => {
             `Update Certificate 
             set CertificateName = ?, IssuingOrganization = ?, IssueDate = ?, ExpireDate = ?, CertificateUrl = ? 
             where EmployeeId = ? AND CertificateId = ?`,
-            [CertificateName, IssuingOrganization, IssueDate, ExpireDate, CertificateUrl, employeeId, certificateId]
+            [certificateName, issuingOrganization, issueDate, expireDate, certificateUrl, employeeId, certificateId]
         );
         res.status(200).json({ message: 'Certificate updated successfully' });
     } 
