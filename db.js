@@ -10,7 +10,8 @@ export async function getAllCertificates(pEmployeeId, pSortby, pSortOrder) {
             [pEmployeeId]
         );
         response = { responseCode: 200, data: { certificates: certificates } };
-    } catch (error) {
+    } 
+    catch (error) {
         response = { responseCode: 500, data: { Error: error.message } };
     }
     return response;
@@ -33,7 +34,11 @@ export async function insertCertificate(pEmployeeId, pCertificate)
         if(result.changes == 1)
         {
             const insertedCertificate= await getCertificate(pEmployeeId, pCertificate.certificateId);
-            response = ({ responseCode: 200, data: { certificate: insertedCertificate } });
+            response = ({ responseCode: 200, data: { certificate: insertedCertificate , responseMessage: "Certificate inserted successfully"} });
+        }
+        else
+        {
+            response = ({ responseCode: 404, data: {Error: 'Failed to insert certificate'} });
         }
     }
     catch (error)
@@ -56,9 +61,10 @@ export async function updateCertificate(pEmployeeId, pCertificateId, pCertificat
         if(result.changes == 1)
         {
             const updatedCertificate = await getCertificate(pEmployeeId, pCertificateId);
-            response = ({ responseCode: 200, data: {certificate: updatedCertificate,  message: "Certificate updated successfully"} });
+            response = ({ responseCode: 200, data: {certificate: updatedCertificate,  responseMessage: "Certificate updated successfully"} });
         }
-        else{
+        else
+        {
             response = ({ responseCode: 404, data: {Error: 'Certificate not found'} });
         }
     }
@@ -74,8 +80,9 @@ export async function deleteCertificate(pEmployeeId, pCertificateId) {
     try {
         let result = await db.run('DELETE FROM Certificate WHERE EmployeeId = ? AND CertificateId = ?', [pEmployeeId, pCertificateId]);
         if (result.changes == 1) { 
-            response = { responseCode: 200, data: { message: "Certificate deleted successfully" } };
-        } else {
+            response = { responseCode: 200, data: { responseMessage: "Certificate deleted successfully" } };
+        } 
+        else {
             response = { responseCode: 404, data: { Error: 'Certificate not found' } };
         }
     } catch (error) {
