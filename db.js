@@ -2,16 +2,16 @@ import { databaseConnection } from "./dbConnection.js";
 
 const db = await databaseConnection();
 
-export async function getAllCertificates(pEmployeeId)
-{
+export async function getAllCertificates(pEmployeeId, pSortby, pSortOrder) {
     let response;
-    try{
-        const certificates = await db.all('Select * from Certificate where EmployeeId = ? ', [pEmployeeId]);
-        response = ({ responseCode: 200, data: { certificates: certificates } });
-    }
-    catch (error)
-    {
-        response = ({ responseCode: 500, data: { Error: error} });
+    try {
+        const certificates = await db.all(
+            `Select * from Certificate where EmployeeId = ? order by ${pSortby} ${pSortOrder};`,
+            [pEmployeeId]
+        );
+        response = { responseCode: 200, data: { certificates: certificates } };
+    } catch (error) {
+        response = { responseCode: 500, data: { Error: error.message } };
     }
     return response;
 }
