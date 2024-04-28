@@ -5,20 +5,18 @@ const app = express();
 const Port = 3000;
 app.use(express.json());
 
-
 app.get('/api/:employeeId/certs', async (req, res) => {
     try {
         const employeeId = req.params.employeeId;
-        const sortBy = req.query.sortBy;
-        const sortOrder = req.query.sortOrder;
-        const response = await getAllCertificates(employeeId);
+        const sortBy = req.query.sortBy || 'certificateId'; 
+        const sortOrder = req.query.sortOrder || 'ASC';
+        const response = await getAllCertificates(employeeId, sortBy, sortOrder);
         res.status(response.responseCode).send(response.data);
-    } 
-    catch (error) 
-    {
+    } catch (error) {
         res.status(500).send({ error: error.message });
     }
 });
+
 
 
 app.post('/api/:employeeId/certs', async (req, res) => {
