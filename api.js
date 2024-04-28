@@ -9,6 +9,8 @@ app.use(express.json());
 app.get('/api/:employeeId/certs', async (req, res) => {
     try {
         const employeeId = req.params.employeeId;
+        const sortBy = req.query.sortBy;
+        const sortOrder = req.query.sortOrder;
         const response = await getAllCertificates(employeeId);
         res.status(response.responseCode).send(response.data);
     } 
