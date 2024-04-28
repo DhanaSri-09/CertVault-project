@@ -6,7 +6,7 @@ export async function getAllCertificates(pEmployeeId)
 {
     let response;
     try{
-        const certificates = await db.all('SELECT * FROM Certificate WHERE EmployeeId = ? ', [pEmployeeId]);
+        const certificates = await db.all('Select * from Certificate where EmployeeId = ? ', [pEmployeeId]);
         response = ({ responseCode: 200, data: { certificates: certificates } });
     }
     catch (error)
