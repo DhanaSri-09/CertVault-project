@@ -12,7 +12,9 @@ app.get('/api/:employeeId/certs', async (req, res) => {
         const sortOrder = req.query.sortOrder || 'ASC';
         const response = await getAllCertificates(employeeId, sortBy, sortOrder);
         res.status(response.responseCode).send(response.data);
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         res.status(500).send({ error: error.message });
     }
 });
