@@ -1,4 +1,6 @@
 import { databaseConnection } from "./dbConnection.js";
+import randomToken from "random-token";
+import md5 from "md5";
 
 const db = await databaseConnection();
 
@@ -6,12 +8,11 @@ export async function getAllCertificates(pEmployeeId, pSortby, pSortOrder) {
     let response;
     try {
         const certificates = await db.all(
-            `Select * from Certificate where EmployeeId = ? order by ${pSortby} ${pSortOrder};`,
+            `SELECT * FROM Certificate WHERE EmployeeId = ? ORDER BY ${pSortby} ${pSortOrder};`,
             [pEmployeeId]
         );
         response = { responseCode: 200, data: { certificates: certificates } };
-    } 
-    catch (error) {
+    } catch (error) {
         response = { responseCode: 500, data: { Error: error.message } };
     }
     return response;
@@ -34,11 +35,7 @@ export async function insertCertificate(pEmployeeId, pCertificate)
         if(result.changes == 1)
         {
             const insertedCertificate= await getCertificate(pEmployeeId, pCertificate.certificateId);
-            response = ({ responseCode: 200, data: { certificate: insertedCertificate , responseMessage: "Certificate inserted successfully"} });
-        }
-        else
-        {
-            response = ({ responseCode: 404, data: {Error: 'Failed to insert certificate'} });
+            response = ({ responseCode: 200, data: { certificate: insertedCertificate } });
         }
     }
     catch (error)
@@ -61,10 +58,9 @@ export async function updateCertificate(pEmployeeId, pCertificateId, pCertificat
         if(result.changes == 1)
         {
             const updatedCertificate = await getCertificate(pEmployeeId, pCertificateId);
-            response = ({ responseCode: 200, data: {certificate: updatedCertificate,  responseMessage: "Certificate updated successfully"} });
+            response = ({ responseCode: 200, data: {certificate: updatedCertificate,  message: "Certificate updated successfully"} });
         }
-        else
-        {
+        else{
             response = ({ responseCode: 404, data: {Error: 'Certificate not found'} });
         }
     }
@@ -80,13 +76,64 @@ export async function deleteCertificate(pEmployeeId, pCertificateId) {
     try {
         let result = await db.run('DELETE FROM Certificate WHERE EmployeeId = ? AND CertificateId = ?', [pEmployeeId, pCertificateId]);
         if (result.changes == 1) { 
-            response = { responseCode: 200, data: { responseMessage: "Certificate deleted successfully" } };
-        } 
-        else {
+            response = { responseCode: 200, data: { message: "Certificate deleted successfully" } };
+        } else {
             response = { responseCode: 404, data: { Error: 'Certificate not found' } };
         }
     } catch (error) {
         response = { responseCode: 500, data: { Error: error } };
     }
     return response;
+}
+
+export async function validateLogin(pUserName, pPassword) {
+    try {
+        const hashPassword = md5(pPassword); 
+        const token = await generateRandomToken(15);
+        const result = await db.get(
+            `SELECT EmployeeId FROM Employee WHERE Name = ? AND Password = ?`,
+            [pUserName, hashPassword]
+        );
+        if (employeeId.length === 0) {
+            return { responseCode: 401, data: { Message: "Incorrect username or password" } };
+        } else {
+            const token = await generateRandomToken(15);
+            let updateToken = await updateEmployee(result.EmployeeId, token);
+            return { responseCode: 200, data: { "Token": token  }} ;
+        }
+    } catch (error) {
+        return { responseCode: 500, data: { Error: error.message } };
+    }
+}
+
+
+export async function generateRandomToken(length) 
+{
+    return randomToken(length);
+}
+
+
+async function updateEmployee(pEmployeeId, pToken)
+{
+    try
+    {
+        let result = await db.run(`Update Employee SET Token=? WHERE EmployeeId=?;`, [pToken, pEmployeeId]);
+        return result.changes;
+    }
+    catch(error)
+    {
+        return -1;
+    }
+}
+
+export async function validateToken(pToken)
+{
+    try{
+        let result = await db.get(`select EmployeeId from Employee where Token=?`, [pToken]);
+        return result.EmployeeId;
+    }
+    catch(error)
+    {
+        return -1;
+    }
 }
