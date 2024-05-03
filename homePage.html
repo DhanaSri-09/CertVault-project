@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CertVault</title>
+    <style>
+        
+    #Certs {
+        margin-top: 20px;
+    }
+
+    /* Style for certificate blocks */
+    #Certs #cert {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+    }
+
+
+    button#logoutButton {
+        float: right;
+        width: 25%;
+        padding: 8px;
+        margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        width: 35%;
+        padding: 8px;
+        margin: 5px 0;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"],
+    button[type="update"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button[type="submit"]:hover,
+    button[type="update"]:hover {
+        background-color: #45a049;
+    }
+
+    button.editButton,
+    button.deleteButton {
+        background-color: #008CBA;
+        color: white;
+        padding: 8px 10px;
+        border: none;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    button.editButton:hover,
+    button.deleteButton:hover {
+        background-color: #005f7f;
+    }
+
+   
+    button.insertButton {
+        font-size: 1.2em; 
+        padding: 100px 20px; 
+    }
+
+    </style>
+</head>
+<body>
+    <div id="Certs"></div>
+    <script type="text/javascript" src="crud.js"></script>
+</body>
+</html>
