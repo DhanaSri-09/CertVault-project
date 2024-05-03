@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from "cors";
 
-import { getAllCertificates, insertCertificate, updateCertificate, deleteCertificate, validateLogin, validateToken } from './db.js';
+import { getAllCertificates, insertCertificate, updateCertificate, deleteCertificate, validateLogin, validateToken, employeeRegister} from './db.js';
 
 const app = express();
 const Port = 3000;
@@ -9,35 +9,44 @@ app.use(express.json());
 app.use(cors());
 
 
-app.post('/api/login', async(req, res) =>{
+app.post('/api/login', async function(req, res) {
     
         const userName = req.body.userName;
         const password = req.body.password;
     try{
         const response = await validateLogin(userName, password);
+        console.log(response);
         res.status(response.responseCode).send(response.data);
     }
     catch (error) {
-        res.status(500).send({ error: error.message });
+        res.status(401).json({ error: 'Invalid credentials!' });
     }
+});
+
+app.post('/api/signup', async function (req, res) {
+    let emp = req.body;
+    console.log(emp);
+    let responseData = await employeeRegister(emp);
+    res.status(responseData.ResponseCode).send(responseData.Data);
 });
 
 app.use(async function(req, res, next){
     let token = req.headers.token;
     let result = await validateToken(token);
-    if (result)
+    if (!result)
     {
-        req.employeeId = result;
+        res.status(401).send({ error: "unauthorized" });
     }
+    req.employeeId = result;
     next();
 });
 
 
 
-app.get('/api/certs', async (req, res) => {
+app.get('/api/certs', async function (req, res) {
     try {
         const employeeId = req.employeeId;
-        const sortBy = req.query.sortBy || 'certificateId'; 
+        const sortBy = req.query.sortBy || 'CertificateId'; 
         const sortOrder = req.query.sortOrder || 'ASC';
         const response = await getAllCertificates(employeeId, sortBy, sortOrder);
         res.status(response.responseCode).send(response.data);
@@ -48,7 +57,7 @@ app.get('/api/certs', async (req, res) => {
 
 
 
-app.post('/api/certs', async (req, res) => {
+app.post('/api/certs', async function(req, res) {
     try {
         const employeeId = req.employeeId;
         const certificateData = req.body;
@@ -62,7 +71,7 @@ app.post('/api/certs', async (req, res) => {
 });
     
 
-app.put('/api/certs/:certificateId', async (req, res) => {
+app.put('/api/certs/:certificateId', async function(req, res) {
     try {
         const employeeId = req.employeeId;
         const certificateId = req.params.certificateId;
@@ -77,7 +86,7 @@ app.put('/api/certs/:certificateId', async (req, res) => {
 });
 
 
-app.delete('/api/certs/:certificateId', async (req, res) => {
+app.delete('/api/certs/:certificateId', async function(req, res) {
     try 
     {
         const employeeId = req.employeeId;
