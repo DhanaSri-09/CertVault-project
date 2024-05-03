@@ -65,14 +65,14 @@ async function showCertificates() {
             let editButton = document.createElement("button");
             editButton.innerText = "Edit";
             editButton.addEventListener("click", function () {
-                editCert(div);
+                populateInputBoxes(certs[certCounter]);
             });
             div.appendChild(editButton);
 
             let deleteButton = document.createElement("button");
             deleteButton.innerText = "Delete";
             deleteButton.addEventListener("click", function () {
-                deleteCertificate(div);
+                deleteCertificate(certs[certCounter].CertificateID);
             });
             div.appendChild(deleteButton);
         }
@@ -162,19 +162,6 @@ async function insertCertificate() {
     }
 }
 
-function addButtons(certBlock) {
-    let buttons = ["Edit", "Delete"];
-    let functions = ["editCert", "deleteCert"];
-    certBlock.appendChild(document.createElement("br"));
-    for (let counter = 0; counter < buttons.length; counter++) {
-        let button = document.createElement("button");
-        button.innerText = buttons[counter];
-        button.addEventListener("click", function () {
-            window[functions[counter]](certBlock);
-        });
-        certBlock.appendChild(button);
-    }
-}
 
 function populateInputBoxes(cert) {
     for (let counter = 0; counter < fields.length; counter++) {
@@ -182,21 +169,10 @@ function populateInputBoxes(cert) {
     }
 }
 
-async function editCert(certBlock) {
-    const cert = {};
-    certBlock.childNodes.forEach(child => {
-        if (child.tagName === 'SPAN') {
-            const label = child.previousElementSibling.textContent.replace(':', '').trim();
-            const value = child.textContent.trim();
-            cert[label] = value;
-        }
-    });
-    populateInputBoxes(cert);
-}
 
 async function updateCertificate() {
+    
     let certificate = getCertificateData();
-     const certId = certBlock.querySelector('span[data-field="CertificateID"]').innerText;
     let options = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -204,7 +180,7 @@ async function updateCertificate() {
     };
     try {
         console.log(token);
-        const response = await fetch(`http://localhost:3000/api/certs/${certId}`, options);
+        const response = await fetch(`http://localhost:3000/api/certs/${certificate.CertificateID}`, options);
         const data = await response.json();
         if (data.Status == true) {
             alert("certificate updated successfully!");
@@ -221,19 +197,19 @@ async function updateCertificate() {
 
 
 
-async function deleteCertificate(certBlock) {
+async function deleteCertificate(certId) {
     if (confirm("Are you sure you want to delete this certificate?")) {
-        const certId = certBlock.querySelector('span[data-field="CertificateID"]').innerText;
         const options = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json', 'Token': token }
         };
         try {
             const response = await fetch(`http://localhost:3000/api/certs/${certId}`, options);
-            const data = await response.json();
-            if (data.Status == true) {
+            if (response.changes) 
+            {
                 alert("Certificate deleted successfully!");
                 certBlock.parentNode.removeChild(certBlock);
+                showCertificates();
             } else {
                 alert(`Failed to delete. ${data.Data}`);
             }
